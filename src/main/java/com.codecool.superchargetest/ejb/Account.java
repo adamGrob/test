@@ -1,14 +1,23 @@
 package com.codecool.superchargetest.ejb;
 
-import org.apache.catalina.User;
-
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     private BigDecimal balance;
 
@@ -16,14 +25,14 @@ public class Account {
     private Customer customer;
 
     @OneToMany
-    private Transaction transaction;
+    private List<Transaction> transactions;
 
-    public Transaction getTransaction() {
-        return transaction;
+    public List<Transaction> getTransaction() {
+        return transactions;
     }
 
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    public void setTransaction(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public BigDecimal getBalance() {
@@ -45,8 +54,10 @@ public class Account {
     public Account() {
     }
 
-    public Account(BigDecimal balance, Customer customer) {
+    public Account(int id, BigDecimal balance, Customer customer, List<Transaction> transactions) {
+        this.id = id;
         this.balance = balance;
         this.customer = customer;
+        this.transactions = transactions;
     }
 }
