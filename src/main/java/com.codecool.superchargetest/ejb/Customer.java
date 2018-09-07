@@ -1,15 +1,26 @@
 package com.codecool.superchargetest.ejb;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Customer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String name;
 
     @OneToOne
     private Account account;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -30,7 +41,8 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, Account account) {
+    public Customer(int id, String name, Account account) {
+        this.id = id;
         this.name = name;
         this.account = account;
     }
