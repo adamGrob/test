@@ -2,13 +2,16 @@ package com.codecool.superchargetest.ejb;
 
 import com.codecool.superchargetest.model.TransActionType;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
 public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
     private Account account;
@@ -24,12 +27,21 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Account account, TransActionType transActionType, Date date, BigDecimal transactionAmount, BigDecimal balanceAtTransAction) {
+    public Transaction(int id, Account account, TransActionType transActionType, Date date, BigDecimal transactionAmount, BigDecimal balanceAtTransAction) {
+        this.id = id;
         this.account = account;
         this.transActionType = transActionType;
         this.date = date;
         this.transactionAmount = transactionAmount;
         this.balanceAtTransAction = balanceAtTransAction;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Account getAccount() {
